@@ -22,8 +22,9 @@ Header file for main.c.
 ***********************************************************************************************************************/
 /* G_u32ApplicationFlags definitions are in configuration.h */
 #define MAX_DRINKS (u8)10 /* Maximum number of drinks */
-
-
+#define MASK1 (u32)0x00020000
+#define MASK2 (u32)0x40404040
+#define MASK3 (u32)0xAAAAAAAA
 /* G_u32SystemFlags */
 #define _SYSTEM_CLOCK_NO_STOP_DEBUG     (u32)0x00000001        /* DEBUG module preventing STOP mode */
 #define _SYSTEM_CLOCK_NO_STOP_LEDS      (u32)0x00000002        /* LED module preventing STOP mode */
