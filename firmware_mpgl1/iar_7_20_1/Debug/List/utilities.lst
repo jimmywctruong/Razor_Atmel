@@ -1,47 +1,50 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.20.1.7305/W32 for ARM        21/Oct/2015  14:29:08
+# IAR ANSI C/C++ Compiler V7.20.1.7305/W32 for ARM        10/Oct/2017  17:54:27
 # Copyright 1999-2014 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
 #    Endian       =  little
 #    Source file  =  
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
 #    Command line =  
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
 #        --preprocess=cl
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\
 #        -lC
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\
 #        -o
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\Obj\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\Obj\
 #        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
 #        --no_clustering --no_scheduling --debug --endian=little
-#        --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program Files\IAR
-#        Systems\EWARM_7_20_1\arm\INC\c\DLib_Config_Normal.h" -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\ -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\bsp\ -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\drivers\
+#        --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench
+#        7.0\arm\INC\c\DLib_Config_Normal.h" -I
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\
 #        -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\application\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\bsp\
 #        -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\drivers\
 #        -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\application\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\application\
 #        -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\cmsis\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\
 #        -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\drivers\
-#        -On --use_c++_inline -I "C:\Program Files\IAR
-#        Systems\EWARM_7_20_1\arm\CMSIS\Include\"
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\application\
+#        -I
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\cmsis\
+#        -I
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\drivers\
+#        -On --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.0\arm\CMSIS\Include\"
 #    List file    =  
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\utilities.lst
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\utilities.lst
 #    Object file  =  
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\Obj\utilities.o
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\Obj\utilities.o
 #
 ###############################################################################
 
-D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
+C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
       1          /***********************************************************************************************************************
       2          File: utilities.c                                                                
       3          
@@ -149,33 +152,61 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
      72          bool IsTimeUp(u32 *pu32SavedTick_, u32 u32Period_)
      73          {
    \                     IsTimeUp: (+1)
-   \   00000000   0x0002             MOVS     R2,R0
+   \   00000000   0xB410             PUSH     {R4}
+   \   00000002   0x0002             MOVS     R2,R0
      74          #ifndef SIMULATOR_MODE
      75            u32 u32TimeElapsed;
      76            
      77            /* Check to see if the timer in question has rolled */
      78            if(G_u32SystemTime1ms >= *pu32SavedTick_)
+   \   00000004   0x....             LDR.N    R0,??DataTable1
+   \   00000006   0x6800             LDR      R0,[R0, #+0]
+   \   00000008   0x6814             LDR      R4,[R2, #+0]
+   \   0000000A   0x42A0             CMP      R0,R4
+   \   0000000C   0xD305             BCC.N    ??IsTimeUp_0
      79            {
      80              u32TimeElapsed = G_u32SystemTime1ms - *pu32SavedTick_;
+   \   0000000E   0x....             LDR.N    R0,??DataTable1
+   \   00000010   0x6800             LDR      R0,[R0, #+0]
+   \   00000012   0x6814             LDR      R4,[R2, #+0]
+   \   00000014   0x1B00             SUBS     R0,R0,R4
+   \   00000016   0x0003             MOVS     R3,R0
+   \   00000018   0xE007             B.N      ??IsTimeUp_1
      81            }
      82            else
      83            {
      84              u32TimeElapsed = (0xFFFFFFFF - *pu32SavedTick_) + G_u32SystemTime1ms;
+   \                     ??IsTimeUp_0: (+1)
+   \   0000001A   0xF05F 0x30FF      MOVS     R0,#-1
+   \   0000001E   0x6814             LDR      R4,[R2, #+0]
+   \   00000020   0x1B00             SUBS     R0,R0,R4
+   \   00000022   0x....             LDR.N    R4,??DataTable1
+   \   00000024   0x6824             LDR      R4,[R4, #+0]
+   \   00000026   0x1820             ADDS     R0,R4,R0
+   \   00000028   0x0003             MOVS     R3,R0
      85            }
      86          
      87            /* Now determine if time is up */
      88            if(u32TimeElapsed < u32Period_)
+   \                     ??IsTimeUp_1: (+1)
+   \   0000002A   0x428B             CMP      R3,R1
+   \   0000002C   0xD201             BCS.N    ??IsTimeUp_2
      89            {
      90              return(FALSE);
+   \   0000002E   0x2000             MOVS     R0,#+0
+   \   00000030   0xE000             B.N      ??IsTimeUp_3
      91            }
      92            else
      93            {
      94              return(TRUE);
+   \                     ??IsTimeUp_2: (+1)
+   \   00000032   0x2001             MOVS     R0,#+1
+   \                     ??IsTimeUp_3: (+1)
+   \   00000034   0xBC10             POP      {R4}
+   \   00000036   0x4770             BX       LR               ;; return
      95            }
      96          #else
      97            return(TRUE);
-   \   00000002   0x2001             MOVS     R0,#+1
-   \   00000004   0x4770             BX       LR               ;; return
      98            
      99          #endif /* SIMULATOR_MODE */
     100            
@@ -389,7 +420,7 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
     218            u8 u8CharCount = 0;
    \   0000000A   0x2700             MOVS     R7,#+0
     219            u32 u32Divider = 1000000000;
-   \   0000000C   0x.... 0x....      LDR.W    R8,??DataTable0  ;; 0x3b9aca00
+   \   0000000C   0x.... 0x....      LDR.W    R8,??DataTable1_1  ;; 0x3b9aca00
     220            u8 u8Temp;
     221            
     222            /* Parse out all the digits, start counting after leading zeros */
@@ -651,7 +682,11 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
     334          } /* end SearchString */
 
    \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable0:
+   \                     ??DataTable1:
+   \   00000000   0x........         DC32     G_u32SystemTime1ms
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
    \   00000000   0x3B9ACA00         DC32     0x3b9aca00
     335          
     336          
@@ -677,7 +712,7 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
        0   ASCIIHexCharToChar
        0   HexToASCIICharLower
        0   HexToASCIICharUpper
-       0   IsTimeUp
+       4   IsTimeUp
       40   NumberToAscii
         40   -> strcpy
        8   SearchString
@@ -687,7 +722,8 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
 
    Bytes  Function/Label
    -----  --------------
-       4  ??DataTable0
+       4  ??DataTable1
+       4  ??DataTable1_1
       66  ASCIIHexCharToChar
        8  G_au8MessageFAIL
        8  G_au8MessageOFF
@@ -695,15 +731,15 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpg_common\drivers\utilities.c
        8  G_au8MessageON
       40  HexToASCIICharLower
       40  HexToASCIICharUpper
-       6  IsTimeUp
+      56  IsTimeUp
      120  NumberToAscii
      166  SearchString
 
  
   32 bytes in section .data
- 442 bytes in section .text
+ 496 bytes in section .text
  
- 442 bytes of CODE memory
+ 496 bytes of CODE memory
   32 bytes of DATA memory
 
 Errors: none

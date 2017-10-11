@@ -25,7 +25,7 @@ extern volatile u32 G_u32SystemTime1s;                 /* From board-specific so
 Global variable definitions with scope limited to this local application.
 Variable names shall start with "Main_" and be declared as static.
 ***********************************************************************************************************************/
-
+static u8 Main_u8Servers = 0; /* # of active servers */
 
 /***********************************************************************************************************************
 Main Program
@@ -43,7 +43,10 @@ void main(void)
 {
   G_u32SystemFlags |= _SYSTEM_INITIALIZING;
   // Check for watch dog restarts
-
+  
+  
+  u32 u32UselessVariableForExample;
+  
   /* Low level initialization */
   WatchDogSetup(); /* During development, set to not reset processor if timeout */
   GpioSetup();

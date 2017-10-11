@@ -21,6 +21,8 @@ Header file for main.c.
 * Constant Definitions
 ***********************************************************************************************************************/
 /* G_u32ApplicationFlags definitions are in configuration.h */
+#define MAX_DRINKS (u8)10 /* Maximum number of drinks */
+
 
 /* G_u32SystemFlags */
 #define _SYSTEM_CLOCK_NO_STOP_DEBUG     (u32)0x00000001        /* DEBUG module preventing STOP mode */

@@ -1,47 +1,50 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.20.1.7305/W32 for ARM        21/Oct/2015  14:29:06
+# IAR ANSI C/C++ Compiler V7.20.1.7305/W32 for ARM        10/Oct/2017  17:54:25
 # Copyright 1999-2014 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
 #    Endian       =  little
 #    Source file  =  
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\application\main.c
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\application\main.c
 #    Command line =  
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\application\main.c
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\application\main.c
 #        --preprocess=cl
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\
 #        -lC
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\
 #        -o
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\Obj\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\Obj\
 #        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
 #        --no_clustering --no_scheduling --debug --endian=little
-#        --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program Files\IAR
-#        Systems\EWARM_7_20_1\arm\INC\c\DLib_Config_Normal.h" -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\ -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\bsp\ -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\drivers\
+#        --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench
+#        7.0\arm\INC\c\DLib_Config_Normal.h" -I
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\
 #        -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\application\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\bsp\
 #        -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\drivers\
 #        -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\application\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\application\
 #        -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\cmsis\
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\
 #        -I
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\drivers\
-#        -On --use_c++_inline -I "C:\Program Files\IAR
-#        Systems\EWARM_7_20_1\arm\CMSIS\Include\"
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\application\
+#        -I
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\cmsis\
+#        -I
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\..\..\firmware_mpg_common\drivers\
+#        -On --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.0\arm\CMSIS\Include\"
 #    List file    =  
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\main.lst
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\List\main.lst
 #    Object file  =  
-#        D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\Obj\main.o
+#        C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\iar_7_20_1\Debug\Obj\main.o
 #
 ###############################################################################
 
-D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\application\main.c
+C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\application\main.c
       1          /***********************************************************************************************************************
       2          File: main.c                                                                
       3          
@@ -77,7 +80,7 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\application\main.c
      25          Global variable definitions with scope limited to this local application.
      26          Variable names shall start with "Main_" and be declared as static.
      27          ***********************************************************************************************************************/
-     28          
+     28          static u8 Main_u8Servers = 0; /* # of active servers */
      29          
      30          /***********************************************************************************************************************
      31          Main Program
@@ -98,13 +101,21 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\application\main.c
    \                     main: (+1)
    \   00000000   0xB580             PUSH     {R7,LR}
      44            G_u32SystemFlags |= _SYSTEM_INITIALIZING;
-   \   00000002   0x4823             LDR.N    R0,??main_0
+   \   00000002   0x4829             LDR.N    R0,??main_0
    \   00000004   0x6800             LDR      R0,[R0, #+0]
    \   00000006   0xF050 0x4000      ORRS     R0,R0,#0x80000000
-   \   0000000A   0x4921             LDR.N    R1,??main_0
+   \   0000000A   0x4927             LDR.N    R1,??main_0
    \   0000000C   0x6008             STR      R0,[R1, #+0]
      45            // Check for watch dog restarts
-     46          
+     46            u32 u32UselessVariableForExample;
+                       ^
+Warning[Pe177]: variable "u32UselessVariableForExample" was declared but never
+          referenced
+
+  static u8 Main_u8Servers = 0; /* # of active servers */
+            ^
+"C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpgl1\application\main.c",28  Warning[Pe177]: 
+          variable "Main_u8Servers" was declared but never referenced
      47            /* Low level initialization */
      48            WatchDogSetup(); /* During development, set to not reset processor if timeout */
    \   0000000E   0x.... 0x....      BL       WatchDogSetup
@@ -139,83 +150,89 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\application\main.c
      66          
      67          #ifndef SIMULATOR_MODE
      68            LcdInitialize();
+   \   0000003E   0x.... 0x....      BL       LcdInitialize
      69            AntInitialize();
+   \   00000042   0x.... 0x....      BL       AntInitialize
      70            SdCardInitialize();
+   \   00000046   0x.... 0x....      BL       SdCardInitialize
      71          #endif /* SIMULATOR_MODE */
      72          
      73            /* Application initialization */
      74          //  BoardTestInitialize();
      75          //  AudioTestInitialize();
      76              UserAppInitialize();
-   \   0000003E   0x.... 0x....      BL       UserAppInitialize
+   \   0000004A   0x.... 0x....      BL       UserAppInitialize
      77            
      78            /* Exit initialization */
      79            SystemStatusReport();
-   \   00000042   0x.... 0x....      BL       SystemStatusReport
+   \   0000004E   0x.... 0x....      BL       SystemStatusReport
      80            G_u32SystemFlags &= ~_SYSTEM_INITIALIZING;
-   \   00000046   0x4812             LDR.N    R0,??main_0
-   \   00000048   0x6800             LDR      R0,[R0, #+0]
-   \   0000004A   0x0040             LSLS     R0,R0,#+1        ;; ZeroExtS R0,R0,#+1,#+1
-   \   0000004C   0x0840             LSRS     R0,R0,#+1
-   \   0000004E   0x4910             LDR.N    R1,??main_0
-   \   00000050   0x6008             STR      R0,[R1, #+0]
+   \   00000052   0x4815             LDR.N    R0,??main_0
+   \   00000054   0x6800             LDR      R0,[R0, #+0]
+   \   00000056   0x0040             LSLS     R0,R0,#+1        ;; ZeroExtS R0,R0,#+1,#+1
+   \   00000058   0x0840             LSRS     R0,R0,#+1
+   \   0000005A   0x4913             LDR.N    R1,??main_0
+   \   0000005C   0x6008             STR      R0,[R1, #+0]
      81            
      82            /* Super loop */  
      83            while(1)
      84            {
      85              WATCHDOG_BONE();
    \                     ??main_1: (+1)
-   \   00000052   0x4810             LDR.N    R0,??main_0+0x4  ;; 0xa5000001
-   \   00000054   0x4910             LDR.N    R1,??main_0+0x8  ;; 0x400e1250
-   \   00000056   0x6008             STR      R0,[R1, #+0]
+   \   0000005E   0x4813             LDR.N    R0,??main_0+0x4  ;; 0xa5000001
+   \   00000060   0x4913             LDR.N    R1,??main_0+0x8  ;; 0x400e1250
+   \   00000062   0x6008             STR      R0,[R1, #+0]
      86              
      87              /* Drivers */
      88              LedUpdate();
-   \   00000058   0x.... 0x....      BL       LedUpdate
+   \   00000064   0x.... 0x....      BL       LedUpdate
      89              ButtonRunActiveState();
-   \   0000005C   0x.... 0x....      BL       ButtonRunActiveState
+   \   00000068   0x.... 0x....      BL       ButtonRunActiveState
      90              UartRunActiveState();
-   \   00000060   0x.... 0x....      BL       UartRunActiveState
+   \   0000006C   0x.... 0x....      BL       UartRunActiveState
      91              SspRunActiveState();
-   \   00000064   0x.... 0x....      BL       SspRunActiveState
+   \   00000070   0x.... 0x....      BL       SspRunActiveState
      92              TWIRunActiveState();
-   \   00000068   0x.... 0x....      BL       TWIRunActiveState
+   \   00000074   0x.... 0x....      BL       TWIRunActiveState
      93              MessagingRunActiveState();
-   \   0000006C   0x.... 0x....      BL       MessagingRunActiveState
+   \   00000078   0x.... 0x....      BL       MessagingRunActiveState
      94              DebugRunActiveState();
-   \   00000070   0x.... 0x....      BL       DebugRunActiveState
+   \   0000007C   0x.... 0x....      BL       DebugRunActiveState
      95              
      96          #ifndef SIMULATOR_MODE
      97              LcdRunActiveState();
+   \   00000080   0x.... 0x....      BL       LcdRunActiveState
      98              AntRunActiveState();
+   \   00000084   0x.... 0x....      BL       AntRunActiveState
      99              SdCardRunActiveState();
+   \   00000088   0x.... 0x....      BL       SdCardRunActiveState
     100          #endif /* SIMULATOR_MODE */
     101          
     102              /* Applications */
     103              //BoardTestRunActiveState();
     104              //AudioTestRunActiveState();
     105              UserAppRunActiveState();
-   \   00000074   0x.... 0x....      BL       UserAppRunActiveState
+   \   0000008C   0x.... 0x....      BL       UserAppRunActiveState
     106              
     107              /* System sleep*/
     108              HEARTBEAT_OFF();
-   \   00000078   0xF05F 0x4000      MOVS     R0,#-2147483648
-   \   0000007C   0x4907             LDR.N    R1,??main_0+0xC  ;; 0x400e0c30
-   \   0000007E   0x6008             STR      R0,[R1, #+0]
+   \   00000090   0xF05F 0x4000      MOVS     R0,#-2147483648
+   \   00000094   0x4907             LDR.N    R1,??main_0+0xC  ;; 0x400e0c30
+   \   00000096   0x6008             STR      R0,[R1, #+0]
     109              SystemSleep();
-   \   00000080   0x.... 0x....      BL       SystemSleep
+   \   00000098   0x.... 0x....      BL       SystemSleep
     110              HEARTBEAT_ON();
-   \   00000084   0xF05F 0x4000      MOVS     R0,#-2147483648
-   \   00000088   0x4905             LDR.N    R1,??main_0+0x10  ;; 0x400e0c34
-   \   0000008A   0x6008             STR      R0,[R1, #+0]
-   \   0000008C   0xE7E1             B.N      ??main_1
-   \   0000008E   0xBF00             Nop      
+   \   0000009C   0xF05F 0x4000      MOVS     R0,#-2147483648
+   \   000000A0   0x4905             LDR.N    R1,??main_0+0x10  ;; 0x400e0c34
+   \   000000A2   0x6008             STR      R0,[R1, #+0]
+   \   000000A4   0xE7DB             B.N      ??main_1
+   \   000000A6   0xBF00             Nop      
    \                     ??main_0:
-   \   00000090   0x........         DC32     G_u32SystemFlags
-   \   00000094   0xA5000001         DC32     0xa5000001
-   \   00000098   0x400E1250         DC32     0x400e1250
-   \   0000009C   0x400E0C30         DC32     0x400e0c30
-   \   000000A0   0x400E0C34         DC32     0x400e0c34
+   \   000000A8   0x........         DC32     G_u32SystemFlags
+   \   000000AC   0xA5000001         DC32     0xa5000001
+   \   000000B0   0x400E1250         DC32     0x400e1250
+   \   000000B4   0x400E0C30         DC32     0x400e0c30
+   \   000000B8   0x400E0C34         DC32     0x400e0c34
     111              
     112            } /* end while(1) main super loop */
     113            
@@ -231,6 +248,8 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\application\main.c
    .cstack Function
    ------- --------
        8   main
+         8   -> AntInitialize
+         8   -> AntRunActiveState
          8   -> ButtonInitialize
          8   -> ButtonRunActiveState
          8   -> ClockSetup
@@ -238,10 +257,14 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\application\main.c
          8   -> DebugRunActiveState
          8   -> GpioSetup
          8   -> InterruptSetup
+         8   -> LcdInitialize
+         8   -> LcdRunActiveState
          8   -> LedInitialize
          8   -> LedUpdate
          8   -> MessagingInitialize
          8   -> MessagingRunActiveState
+         8   -> SdCardInitialize
+         8   -> SdCardRunActiveState
          8   -> SspInitialize
          8   -> SspRunActiveState
          8   -> SysTickSetup
@@ -262,14 +285,14 @@ D:\MPG\mpg_source\Git\Razor_Atmel\firmware_mpgl1\application\main.c
    -----  --------------
        4  G_u32ApplicationFlags
        4  G_u32SystemFlags
-     164  main
+     188  main
 
  
    8 bytes in section .bss
- 164 bytes in section .text
+ 188 bytes in section .text
  
- 164 bytes of CODE memory
+ 188 bytes of CODE memory
    8 bytes of DATA memory
 
 Errors: none
-Warnings: none
+Warnings: 2

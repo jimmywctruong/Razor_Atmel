@@ -19,6 +19,7 @@ RESULT FROM USING THIS FIRMWARE IN WHOLE OR IN PART.
 /******************************************************************************
 Type Definitions
 ******************************************************************************/
+#define MPGL1 1
 
 /* %LED% The order of the LEDs in LedNumberType below must match the order of the definitions provided in leds_x.c */
 #ifdef MPGL1
@@ -72,6 +73,7 @@ typedef struct
 * Function Declarations
 ******************************************************************************/
 /* Public Functions */
+
 void LedOn(LedNumberType eLED_);
 void LedOff(LedNumberType eLED_);
 void LedToggle(LedNumberType eLED_);
