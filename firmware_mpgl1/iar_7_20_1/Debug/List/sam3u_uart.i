@@ -7072,13 +7072,29 @@ Header file for main.c.
 
 
 
+
+
 /***********************************************************************************************************************
 * Constant Definitions
 ***********************************************************************************************************************/
 /* G_u32ApplicationFlags definitions are in configuration.h */
 
+
+
+
+
+/***********************************************************************************************************************
+* Type Definitions
+***********************************************************************************************************************/
+typedef enum {EMPTY , BEER, SHOOTER, WINE, HIBALL} DrinkType;
+typedef struct
+{
+  int u8ServerNumber;                    /* Unique token for this item */
+  DrinkType asServingTray[(int)10];  /* Data payload array */
+  void* psNextServer;                   /* Pointer to next ServerType*/
+} ServerType;
 /* G_u32SystemFlags */
-#line 32 "C:\\Users\\jimmy\\OneDrive\\Documents\\GitHub\\Razor_Atmel\\firmware_mpgl1\\iar_7_20_1\\..\\application\\main.h"
+#line 48 "C:\\Users\\jimmy\\OneDrive\\Documents\\GitHub\\Razor_Atmel\\firmware_mpgl1\\iar_7_20_1\\..\\application\\main.h"
 
 
 
@@ -9999,7 +10015,7 @@ Queue size in bytes is TX_QUEUE_SIZE x MAX_TX_MESSAGE_LENGTH */
 /**********************************************************************************************************************
 Type Definitions
 **********************************************************************************************************************/
-typedef enum {EMPTY = 0, WAITING, SENDING, RECEIVING, COMPLETE, TIMEOUT, ABANDONED, NOT_FOUND = 0xff} MessageStateType;
+typedef enum {EMPTY1 = 0, WAITING, SENDING, RECEIVING, COMPLETE, TIMEOUT, ABANDONED, NOT_FOUND = 0xff} MessageStateType;
 
 /* Message struct for data messages */
 typedef struct

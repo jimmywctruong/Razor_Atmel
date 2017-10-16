@@ -35,7 +35,7 @@ Queue size in bytes is TX_QUEUE_SIZE x MAX_TX_MESSAGE_LENGTH */
 /**********************************************************************************************************************
 Type Definitions
 **********************************************************************************************************************/
-typedef enum {EMPTY = 0, WAITING, SENDING, RECEIVING, COMPLETE, TIMEOUT, ABANDONED, NOT_FOUND = 0xff} MessageStateType;
+typedef enum {EMPTY1 = 0, WAITING, SENDING, RECEIVING, COMPLETE, TIMEOUT, ABANDONED, NOT_FOUND = 0xff} MessageStateType;
 
 /* Message struct for data messages */
 typedef struct

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.20.1.7305/W32 for ARM        10/Oct/2017  17:54:26
+# IAR ANSI C/C++ Compiler V7.20.1.7305/W32 for ARM        15/Oct/2017  21:32:06
 # Copyright 1999-2014 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -232,6 +232,8 @@ C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpg_common\drivers
    \   0000002C   0x2300             MOVS     R3,#+0
    \   0000002E   0x6013             STR      R3,[R2, #+0]
     129                pListParser->eState = EMPTY;
+                                           ^
+Warning[Pe188]: enumerated type mixed with another type
    \   00000030   0x2300             MOVS     R3,#+0
    \   00000032   0x7113             STRB     R3,[R2, #+4]
     130              }
@@ -658,6 +660,8 @@ C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpg_common\drivers
    \   00000036   0xFB03 0x2200      MLA      R2,R3,R0,R2
    \   0000003A   0x6011             STR      R1,[R2, #+0]
     344              Msg_StatusQueue[i].eState = EMPTY;
+                                               ^
+Warning[Pe188]: enumerated type mixed with another type
    \   0000003C   0x2100             MOVS     R1,#+0
    \   0000003E   0x....             LDR.N    R2,??DataTable8
    \   00000040   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
@@ -1011,4 +1015,4 @@ C:\Users\jimmy\OneDrive\Documents\GitHub\Razor_Atmel\firmware_mpg_common\drivers
  3 093 bytes of DATA memory
 
 Errors: none
-Warnings: none
+Warnings: 2

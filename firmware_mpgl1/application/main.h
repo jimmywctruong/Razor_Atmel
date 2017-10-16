@@ -17,14 +17,27 @@ Header file for main.c.
 #define FIRMWARE_SUB_REV2               '1'
 
 
+
+
 /***********************************************************************************************************************
 * Constant Definitions
 ***********************************************************************************************************************/
 /* G_u32ApplicationFlags definitions are in configuration.h */
-#define MAX_DRINKS (u8)10 /* Maximum number of drinks */
+#define MAX_DRINKS (int)10 /* Maximum number of drinks */
 #define MASK1 (u32)0x00020000
 #define MASK2 (u32)0x40404040
 #define MASK3 (u32)0xAAAAAAAA
+
+/***********************************************************************************************************************
+* Type Definitions
+***********************************************************************************************************************/
+typedef enum {EMPTY , BEER, SHOOTER, WINE, HIBALL} DrinkType;
+typedef struct
+{
+  int u8ServerNumber;                    /* Unique token for this item */
+  DrinkType asServingTray[MAX_DRINKS];  /* Data payload array */
+  void* psNextServer;                   /* Pointer to next ServerType*/
+} ServerType;
 /* G_u32SystemFlags */
 #define _SYSTEM_CLOCK_NO_STOP_DEBUG     (u32)0x00000001        /* DEBUG module preventing STOP mode */
 #define _SYSTEM_CLOCK_NO_STOP_LEDS      (u32)0x00000002        /* LED module preventing STOP mode */
