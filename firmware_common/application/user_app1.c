@@ -138,6 +138,7 @@ static void UserApp1SM_Idle(void)
 {
   static u32 u32Counter = 0;
   static u32 u32_2000msTimer = 0;
+  static u8 u8DoubleCount = 0;
   
   static u32 u32BlinkHz = 1.024;
   static bool bLightIsOn = FALSE;
@@ -150,7 +151,12 @@ static void UserApp1SM_Idle(void)
   if(u32_2000msTimer == 2000)
   {
     u32_2000msTimer = 0;
-    u32BlinkHz *= 2;
+    /* Cap the blink rate */
+    if(u8DoubleCount < 6)
+    {
+      u8DoubleCount++;
+      u32BlinkHz *= 2;
+    }
   }
   
   /* Check, and reset u32Counter every 1000/u32BlinkHz cycles */
