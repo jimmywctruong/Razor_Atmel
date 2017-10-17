@@ -137,12 +137,13 @@ State Machine Function Definitions
 static void UserApp1SM_Idle(void)
 {
   static u32 u32Counter = 0;
-  static u32 u32BlinkHz = 1024;
+
   static bool bLightIsOn = FALSE;
   
   /* Increment u32Counter every 1ms cycle during UserApp1SM_Idle */
   u32Counter++;
-
+  
+  
   /* Check, and reset u32Counter every COUNTER_LIMIT_MS cycles */
   if(u32Counter == COUNTER_LIMIT_MS)
   {
