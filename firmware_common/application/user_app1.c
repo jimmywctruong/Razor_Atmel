@@ -87,7 +87,23 @@ Promises:
 */
 void UserApp1Initialize(void)
 {
- 
+  /* Initialize all LEDs to off */
+  LedOff(WHITE);
+  LedOff(PURPLE);
+  LedOff(BLUE);
+  LedOff(CYAN);
+  LedOff(GREEN);
+  LedOff(YELLOW);
+  LedOff(ORANGE);
+  LedOff(RED);
+  
+  /* Set the backlight to white */
+  LedOn(LCD_RED);
+  LedOn(LCD_GREEN);
+  LedOn(LCD_BLUE);
+
+  
+  
   /* If good initialization, set state to Idle */
   if( 1 )
   {
@@ -137,6 +153,63 @@ State Machine Function Definitions
 static void UserApp1SM_Idle(void)
 {
 
+  static u16 u16BlinkCount = 0;
+  
+  static u8 u8Counter = 0;
+  
+  u16BlinkCount++;
+  if(u16BlinkCount == 500)
+  {
+    u16BlinkCount = 0;
+    
+    u8Counter++;
+    
+    /* Update and roll over u8Counter at 16 */
+    if(u8Counter == 16)
+    {
+      u8Counter = 0;
+      
+    }
+    
+    /* Read the counter and turn on the LEDs.
+    RED is bit 0, ORANGE is bit 1,
+    YELLOW is bit 2, GREEN is bit 3 */
+    
+    if(u8Counter & 0x01)
+    {
+      LedOn(RED);
+    }
+    else
+    {
+      LedOff(RED);
+    }
+    if(u8Counter & 0x02)
+    {
+      LedOn(ORANGE);
+    }
+    else
+    {
+      LedOff(ORANGE);
+    }
+    if(u8Counter & 0x04)
+    {
+      LedOn(YELLOW);
+    }
+    else
+    {
+      LedOff(YELLOW);
+    }
+    if(u8Counter & 0x08)
+    {
+      LedOn(GREEN);
+    }
+    else
+    {
+      LedOff(GREEN);
+    }
+
+    
+  }
 } /* end UserApp1SM_Idle() */
     
 
