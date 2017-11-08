@@ -145,51 +145,6 @@ State Machine Function Definitions
 static void UserApp1SM_Idle(void)
 {
 
-  static bool bYellowBlink = FALSE;
-  
-  if (IsButtonPressed(BUTTON0))
-  {
-    LedOn(WHITE);
-  }
-  else
-  {
-    LedOff(WHITE);
-  }
-  
-  if (WasButtonPressed(BUTTON0))
-  {
-    ButtonAcknowledge(BUTTON0);
-  }
-  
-  if (WasButtonPressed(BUTTON1))
-  {
-    ButtonAcknowledge(BUTTON1);
-    
-    if (bYellowBlink)
-    {
-      bYellowBlink = FALSE;
-      LedOff(YELLOW);
-    }
-    else
-    {
-      bYellowBlink = TRUE;
-      LedBlink(YELLOW, LED_1HZ);
-    }
-    
-  }
-  if (WasButtonPressed(BUTTON3))
-  {
-    ButtonAcknowledge(BUTTON3);
-  }
-  
-  if (IsButtonHeld(BUTTON3, 2000))
-  {
-    LedOn(CYAN);
-  }
-  else
-  {
-    LedOff(CYAN);
-  }
   
 } /* end UserApp1SM_Idle() */
     
