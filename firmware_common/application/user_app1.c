@@ -144,6 +144,18 @@ State Machine Function Definitions
 /* Wait for ??? */
 static void UserApp1SM_Idle(void)
 {
+  static u32 u32Password = 1122;
+  static u32 u32Input = 0;
+  static u8 u8InputCount = 0;
+  static bool bRED = FALSE;
+  static bool bGREEN = FALSE;
+  static u8BlinkCount = 0;
+  static bool bBlinking = FALSE;
+  
+  if (WasButtonPressed(BUTTON0))
+  {
+  }
+  
   
 } /* end UserApp1SM_Idle() */
     
