@@ -146,16 +146,106 @@ static void UserApp1SM_Idle(void)
 {
   static u32 u32Password = 1122;
   static u32 u32Input = 0;
-  static u8 u8InputCount = 0;
+  static u32 u32InputCount = 0;
   static bool bRED = FALSE;
   static bool bGREEN = FALSE;
-  static u8BlinkCount = 0;
+  static u32 u32BlinkCount = 0;
   static bool bBlinking = FALSE;
+  static u32 startupTimer = 0;
+  static bool pw_change = FALSE;
+  
+  startupTimer++;
+  if (startupTimer < 3000 && IsButtonHeld(BUTTON3, 100))
+  {
+    bGREEN = TRUE;
+    ButtonAcknowledge(BUTTON3);
+    u32Input = 0;
+    u32InputCount = 0;
+    pw_change = TRUE;
+  }
+  
   
   if (WasButtonPressed(BUTTON0))
   {
+    ButtonAcknowledge(BUTTON0);
+    u32Input *= 10;
+    u32Input += 1;
+    u32InputCount++;
+  } else if (WasButtonPressed(BUTTON1))
+  {
+    ButtonAcknowledge(BUTTON1);
+    u32Input *= 10;
+    u32Input += 2;
+
+    u32InputCount++;
+  } else if (WasButtonPressed(BUTTON2))
+  {
+    ButtonAcknowledge(BUTTON2);
+    u32Input *= 10;
+    u32Input += 3;
+
+    u32InputCount++;
+  } else if (WasButtonPressed(BUTTON3))
+  {
+    if (startupTimer > 3000)
+      ButtonAcknowledge(BUTTON3);
+    
+    if(pw_change == TRUE)
+    {
+      bGREEN = TRUE;
+      pw_change = FALSE;
+      u32Password = u32Input;
+      u32InputCount = 0;
+      u32Input = 0;
+    }
+    else if (u32Input == u32Password)
+    {
+      bGREEN = TRUE;
+      u32Input = 0;
+      u32InputCount = 0;
+      
+    } else {
+      bRED = TRUE;
+      u32Input = 0;
+      u32InputCount = 0;
+    }
+  }
+  if (u32InputCount == 11)
+  {
+    bRED = TRUE;
+    u32Input = 0;
+    u32InputCount = 0;
   }
   
+  if (bBlinking == TRUE)
+  {
+    u32BlinkCount++;
+    if (u32BlinkCount == 1000)
+    {
+      bBlinking = FALSE;
+      u32BlinkCount = 0;
+      LedOff(RED);
+      LedOff(GREEN);
+      
+    }
+    
+  }
+  
+  if (bGREEN == TRUE)
+  {
+    u32BlinkCount = 0;
+    LedBlink(GREEN, LED_4HZ);
+    bBlinking = TRUE;
+    bGREEN = FALSE;
+    LedOff(RED);
+  } else if (bRED == TRUE)
+  {
+    u32BlinkCount = 0;
+    LedBlink(RED, LED_4HZ);
+    bBlinking = TRUE;
+    bRED = FALSE;
+    LedOff(GREEN);
+  }
   
 } /* end UserApp1SM_Idle() */
     
