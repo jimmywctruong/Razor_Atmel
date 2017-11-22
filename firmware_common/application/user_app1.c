@@ -157,7 +157,9 @@ static void UserApp1SM_Idle(void)
   startupTimer++;
   if (startupTimer < 3000 && IsButtonHeld(BUTTON3, 100))
   {
-    bGREEN = TRUE;
+    //bGREEN = TRUE;
+    LedBlink(GREEN, LED_8HZ);
+    LedBlink(RED, LED_8HZ);
     ButtonAcknowledge(BUTTON3);
     u32Input = 0;
     u32InputCount = 0;
@@ -185,13 +187,15 @@ static void UserApp1SM_Idle(void)
     u32Input += 3;
 
     u32InputCount++;
-  } else if (WasButtonPressed(BUTTON3))
+  } else if (WasButtonPressed(BUTTON3) && startupTimer > 3000)
   {
     if (startupTimer > 3000)
       ButtonAcknowledge(BUTTON3);
     
     if(pw_change == TRUE)
     {
+      LedOff(RED);
+      LedOff(GREEN);
       bGREEN = TRUE;
       pw_change = FALSE;
       u32Password = u32Input;
