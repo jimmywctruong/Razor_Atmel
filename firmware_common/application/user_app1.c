@@ -59,6 +59,8 @@ Variable names shall start with "UserApp1_" and be declared as static.
 ***********************************************************************************************************************/
 static fnCode_type UserApp1_StateMachine;            /* The state machine function pointer */
 //static u32 UserApp1_u32Timeout;                      /* Timeout counter used across states */
+static u8 UserApp1au8MyName[] = "Jimmy Truong";
+static u8 UserApp1CursorPosition;
 
 
 /**********************************************************************************************************************
@@ -95,6 +97,16 @@ void UserApp1Initialize(void)
   LedOff(YELLOW);
   LedOff(ORANGE);
   LedOff(RED);
+  
+  LCDMessage(LINE1_START_ADDR, UserApp1au8MyName);
+  LCDClearChars(LINE1_START_ADDR + 13, 5);
+  LCDMessage(LINE2_START_ADDR, "0");
+  LCDMessage(LINE2_START_ADDR + 6, "1");
+  LCDMessage(LINE2_START_ADDR + 13, "2");
+  LCDMessage(LINE2_END_ADDR, "3"); 
+  LCDCommand(LCD_HOME_CMD);
+  
+  UserApp1CursorPosition = LINE1_START_ADDR;
   
   /* If good initialization, set state to Idle */
   if( 1 )
@@ -144,7 +156,72 @@ State Machine Function Definitions
 /* Wait for ??? */
 static void UserApp1SM_Idle(void)
 {
-
+  static bool bCursorOn = FALSE;
+  
+  if(WasButtonPressed(BUTTON0))
+  {
+    ButtonAcknowledge(BUTTON0);
+    
+    if(bCursorOn)
+    {
+      /* If the cursor is already on, turn it off for toggle functionality */
+      LCDCommand(LCD_DISPLAY_CMD | LCD_DISPLAY_ON);
+      bCursorOn = FALSE;
+    }
+    else 
+    {
+      /* If the cursor is already off, turn it on for toggle functionality */
+      LCDCommand(LCD_DISPLAY_CMD | LCD_DISPLAY_ON | LCD_DISPLAY_CURSOR | 
+                 LCD_DISPLAY_BLINK);
+      bCursorOn = TRUE;
+    }
+  } /* end cursor blink toggle */
+  
+  
+  if(WasButtonPressed(BUTTON2))
+  {
+    ButtonAcknowledge(BUTTON2);
+    if (bCursorOn)
+    {
+      if(UserApp1CursorPosition == LINE1_START_ADDR)
+      {
+        UserApp1CursorPosition = LINE2_END_ADDR;
+      } 
+      else if (UserApp1CursorPosition == LINE2_START_ADDR)
+      {
+        UserApp1CursorPosition = LINE1_END_ADDR;
+      } 
+      else
+      {
+        UserApp1CursorPosition--;
+      }
+      LCDCommand(LCD_ADDRESS_CMD | UserApp1CursorPosition);
+    }
+  }
+  
+  if(WasButtonPressed(BUTTON3))
+  {
+    ButtonAcknowledge(BUTTON3);
+    
+    if(bCursorOn)
+    {
+      if(UserApp1CursorPosition == LINE1_END_ADDR)
+      {
+        UserApp1CursorPosition = LINE2_START_ADDR;
+      } 
+      else if (UserApp1CursorPosition == LINE2_END_ADDR)
+      {
+        UserApp1CursorPosition = LINE1_START_ADDR;
+      }
+      else
+      {
+        UserApp1CursorPosition++;
+      }
+      LCDCommand(LCD_ADDRESS_CMD | UserApp1CursorPosition);
+    }
+  }
+  
+  
   
 } /* end UserApp1SM_Idle() */
     
