@@ -77,7 +77,7 @@ The order of the definitions below must match the order of the definitions provi
 #ifdef EIE1
 static const u32 Button_au32ButtonPins[TOTAL_BUTTONS] = 
 {
-  PA_17_BUTTON0, PB_00_BUTTON1, PB_01_BUTTON2, PB_02_BUTTON3
+  PA_17_BUTTON0, PB_00_BUTTON1, PB_01_BUTTON2, PB_02_BUTTON3, PA_00_INFRA
 };
 
 /* Control array for all buttons in system initialized for ButtonInitialize().  Array values correspond to ButtonConfigType fields: 
