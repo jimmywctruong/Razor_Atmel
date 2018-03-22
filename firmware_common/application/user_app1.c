@@ -35,6 +35,12 @@ Runs current task state.  Should only be called once in main loop.
 **********************************************************************************************************************/
 
 #include "configuration.h"
+#include "user_app1.h"
+#include "game_constants.h"
+#include "game_variables.h"
+#include "game_print.c"
+#include "game_movement.h"
+#include "game_movement.c"
 
 /***********************************************************************************************************************
 Global variable definitions with scope across entire project.
@@ -58,23 +64,15 @@ Global variable definitions with scope limited to this local application.
 Variable names shall start with "UserApp1_" and be declared as static.
 ***********************************************************************************************************************/
 static fnCode_type UserApp1_StateMachine;            /* The state machine function pointer */
-//static u32 UserApp1_u32Timeout;                      /* Timeout counter used across states */
+static u32 UserApp1_u32Timeout;                      /* Timeout counter used across states */
 static u8 UserApp1au8GameStartMessageTop[] 
 = "                    Welcome to Brick Breaker                    ";
 static u8 UserApp1au8GameStartMessageBottom[] 
 = "                    Press any key to Start                    ";
 
-static u8 UserApp1au8GameOverlayTopScore[]
-= "Score:              ";
 
-static u8 UserApp1au8GameOverlayBottom[]
-= "<                  >";
 
-static u8 UserApp1au8GameScreen[48][32];
-
-u32 U32_GAME_PADDLE_LEFT_BOUND;
-u32 U32_GAME_PADDLE_RIGHT_BOUND;
-
+static struct Ball newBall;
 
 
 /**********************************************************************************************************************
@@ -162,6 +160,7 @@ void UserApp1Initialize(void)
   /* Initialize the Game Start Screen */
   
   LCDCommand(LCD_CLEAR_CMD);
+  
   /* Swap the '\0' at the end of the string and put it after the 20th char */
   
   UserApp1PrepareLCDMessage
@@ -207,32 +206,34 @@ void UserApp1RunActiveState(void)
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Private functions                                                                                                  */
 /*--------------------------------------------------------------------------------------------------------------------*/
-static void UserApp1MakeBoard(){
-  static u16 brickLayers = 8;
+static void UserApp1MakeBoard(void){
   
-  for (int i = 0; i < U32_GAME_SCREEN_YAXIS; i++) 
+  for (int i = 0; i < U32_GAME_BOARD_YAXIS; i++) 
   {
-    if (i < brickLayers)
+    if (i < U32_BRICKLAYERS)
     {
       for (int j = 0; j < U32_GAME_BOARD_XAXIS; j++)
       {
-        UserApp1au8GameScreen[i][j] = '=';
+        au8GameScreen[i][j] = U8_BRICK;
       }
     } else {
       for (int j = 0; j < U32_GAME_BOARD_XAXIS; j++)
       {
-        UserApp1au8GameScreen[i][j] = ' ';
+        au8GameScreen[i][j] = U8_BLANK;
       }
     } 
+    // Turn each line of the board into a valid C-String
+    au8GameScreen[i][U32_GAME_BOARD_XAXIS] = '\0';
   }
   
   return;
 }
 // Draws the board every three cycles to allow DebugPrintf time
-static void UserApp1SM_DrawBoard() {
+static void UserApp1SM_DrawBoard(void) {
   static u32 line = -1;
   static u32 skip = 0;
-  if (skip == 2)
+  
+  if (skip == 3)
   {
     skip = 0;
     if (line == -1)
@@ -244,11 +245,11 @@ static void UserApp1SM_DrawBoard() {
     {
       line = -1;
       skip = 0;
-      UserApp1_StateMachine = UserApp1SM_GameStart;
+      UserApp1_StateMachine = UserApp1SM_GameInitializeStall;
     } 
     else 
     {
-      DebugPrintf(UserApp1DisplayLine(line++));
+      DebugPrintf(au8GameScreen[line++]);
     }
   } 
   else 
@@ -257,63 +258,16 @@ static void UserApp1SM_DrawBoard() {
   }
 }
 
-static void UserApp1DrawPaddle(void) 
-{
-  DebugPrintf("\033[48;0H");
-  DebugPrintf(UserApp1DisplayLine(U32_GAME_BOARD_YAXIS - 1));
-}
 
-static void UserApp1DrawBall(struct Ball ball) 
-{
-  static u32 row = 5;
-  static u32 col = 7;
-  static u8* command = "\033[r;cHo\0";
-  
-  command[row] = ((u8) ball.x) + '0';
-  command[col] = ((u8) ball.y) + '0';
-  DebugPrintf(command);
-}
 
-static u8* UserApp1DisplayLine(int line) {
-  static u8 HorizontalMessage[33];
-  for (u32 i = 0; i < U32_GAME_BOARD_XAXIS; i++)
-  {
-    HorizontalMessage[i] = UserApp1au8GameScreen[line][i];
-  }
-  HorizontalMessage[32] = '\0';
-  
-  return HorizontalMessage;
-}
 
-static void UserApp1MovePaddle(u32 U32_GAME_DIRECTION) 
-{
-  static u8 leftChar;
-  static u8 rightChar;
-  if ((U32_GAME_DIRECTION == U32_GAME_LEFT) && (0 < U32_GAME_PADDLE_LEFT_BOUND)) 
-  {
-    leftChar = '-';
-    rightChar = ' ';
-    U32_GAME_PADDLE_LEFT_BOUND += U32_GAME_DIRECTION;
-    UserApp1au8GameScreen[U32_GAME_BOARD_YAXIS - 1][U32_GAME_PADDLE_LEFT_BOUND] = leftChar;
-    UserApp1au8GameScreen[U32_GAME_BOARD_YAXIS - 1][U32_GAME_PADDLE_RIGHT_BOUND] = rightChar;
-    U32_GAME_PADDLE_RIGHT_BOUND += U32_GAME_DIRECTION;
-  }
-  else if ((U32_GAME_DIRECTION == U32_GAME_RIGHT) && (U32_GAME_PADDLE_RIGHT_BOUND 
-                                                    < U32_GAME_BOARD_XAXIS - 1))
-  {
-    leftChar = ' ';
-    rightChar = '-';
-    
-    U32_GAME_PADDLE_RIGHT_BOUND += U32_GAME_DIRECTION;
-    UserApp1au8GameScreen[U32_GAME_BOARD_YAXIS - 1][U32_GAME_PADDLE_RIGHT_BOUND] = rightChar;
-    UserApp1au8GameScreen[U32_GAME_BOARD_YAXIS - 1][U32_GAME_PADDLE_LEFT_BOUND] = leftChar;
-    U32_GAME_PADDLE_LEFT_BOUND += U32_GAME_DIRECTION;
-    
-  } 
-    
-  
-  UserApp1DrawPaddle();
-}
+
+
+
+
+
+
+
 
 /**********************************************************************************************************************
 State Machine Function Definitions
@@ -339,7 +293,7 @@ static void UserApp1SM_GameMenu(void)
   
   UserApp1u32MsgScrollCounter++;
   
-  /* If 100 milliseconds have passed, advance the message text */
+  /* If 150 milliseconds have passed, advance the message text */
   if (UserApp1u32MsgScrollCounter == 150) 
   {
     UserApp1u32MsgScrollCounter = 0;
@@ -424,68 +378,120 @@ static void UserApp1SM_GameMenu(void)
 static void UserApp1SM_GameInitialize(void)
 {
   LCDCommand(LCD_CLEAR_CMD);
-  LCDMessage(LINE1_START_ADDR, UserApp1au8GameOverlayTopScore);
-  LCDMessage(LINE2_START_ADDR, UserApp1au8GameOverlayBottom);
+  LCDMessage(LINE1_START_ADDR, au8GameOverlayTopScore);
+  LCDMessage(LINE2_START_ADDR, au8GameOverlayBottom);
   
   UserApp1MakeBoard();
+
+  newBall.x = U32_GAME_BOARD_YAXIS / 2;
+  newBall.y = U32_GAME_BOARD_YAXIS - 1;
+  newBall.vx = 1;
+  newBall.vy = -1;
+  ball = &newBall;
   
-  struct Ball ball;
+  DebugPrintf("\033[2J");
+#if 1
+  DebugPrintf("\033[?25l");
+#endif
   
-  UserApp1SetBall(ball);
+  SetBall(ball);
+  
   
   for(int i = 0; i < U32_GAME_PADDLE_SIZE/2; i++) 
   {
-    UserApp1au8GameScreen[U32_GAME_BOARD_YAXIS - 1][U32_GAME_BOARD_XAXIS/2 + i] = '-';
-    UserApp1au8GameScreen[U32_GAME_BOARD_YAXIS - 1][U32_GAME_BOARD_XAXIS/2 - i - 1] = '-';
+    au8GameScreen[U32_GAME_BOARD_YAXIS - 1 - U32_GAME_PADDLE_VERTTICAL_OFFSET
+      ][U32_GAME_BOARD_XAXIS/2 + i] = '-';
+    au8GameScreen[U32_GAME_BOARD_YAXIS - 1 - U32_GAME_PADDLE_VERTTICAL_OFFSET
+      ][U32_GAME_BOARD_XAXIS/2 - i - 1] = '-';
     U32_GAME_PADDLE_LEFT_BOUND = U32_GAME_BOARD_XAXIS/2 - i - 1;
     U32_GAME_PADDLE_RIGHT_BOUND = U32_GAME_BOARD_XAXIS/2 + i;
   }
   
-  
-  
-  
-  
-  
   UserApp1_StateMachine = UserApp1SM_DrawBoard;
   
-  
-  
-  
-  
+  //UserApp1_StateMachine = UserApp1SM_DrawBoard;
   
   
 } /* end UserApp1SM_GameInitialize */          
 
-
-
-static void UserApp1CenterBall(struct Ball ball) 
+static void UserApp1SM_GameInitializeStall(void)
 {
-  ball.x = U32_GAME_BOARD_XAXIS/2;
-  ball.y = U32_GAME_BOARD_YAXIS - 1;
-  ball.vy = 1;
-  ball.vx = (G_u32SystemTime1ms % 2 == 0) ? -1 : 1;
+  static u32 stall = 0;
+  if (stall == 5)
+  {
+    DrawBall(ball);
+  }
+  if (stall == 10)
+  {
+    UserApp1_StateMachine = UserApp1SM_GameStart;
+  }
+  stall++;
 }
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 /* Game Start */
 static void UserApp1SM_GameStart(void)
 {
-  if (WasButtonPressed(BUTTON0) && WasButtonPressed(BUTTON3))
-  {
-    ButtonAcknowledge(BUTTON0);
-    ButtonAcknowledge(BUTTON3);
-  } 
-  else if (WasButtonPressed(BUTTON0)) 
-  {
-    ButtonAcknowledge(BUTTON0);
-    UserApp1MovePaddle(U32_GAME_LEFT);
+  static u32 counter = 0;
+    if (counter % 40 == 0)
+    {
+    if (IsButtonPressed(BUTTON0) && IsButtonPressed(BUTTON3))
+    {
+      //ButtonAcknowledge(BUTTON0);
+      //ButtonAcknowledge(BUTTON3);
+    } 
+    else if (IsButtonPressed(BUTTON0)) 
+    {
+      //ButtonAcknowledge(BUTTON0);
+      
+      MovePaddle(U32_GAME_LEFT);
+      
+    } else if (IsButtonPressed(BUTTON3)) 
+    {
+      //ButtonAcknowledge(BUTTON3);
+      MovePaddle(U32_GAME_RIGHT);
+    }
     
-  } else if (WasButtonPressed(BUTTON3)) 
-  {
-    ButtonAcknowledge(BUTTON3);
-    UserApp1MovePaddle(U32_GAME_RIGHT);
+    if (WasButtonPressed(BUTTON2)) 
+    {
+      ButtonAcknowledge(BUTTON2);
+      if (!isMoving(ball))
+      {
+        setMoving(ball);
+      }
+    }
+    counter = 0;
   }
+  if (counter % 50 == 0)
+  {
+    
+    //DebugPrintf("\033[2J");
+    
+    MoveBall(ball);
+    DrawBall(ball);
+    updateTopRow();
+    
+    if (ball->y == U32_GAME_BOARD_YAXIS)
+    {
+      //UserApp1_StateMachine = UserApp1SM_GameReset;
+    }
+  }
+  
+  if (counter == 1000)
+  {
+    counter = 0;
+  }
+  counter++;
+
+  
 } /* end UserApp1SM_GameStart */ 
+
+static void UserApp1SM_GameReset(void)
+{
+  
+}
+
+
 /*-------------------------------------------------------------------------------------------------------------------*/
 /* Handle an error */
 static void UserApp1SM_Error(void)          
