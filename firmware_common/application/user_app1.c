@@ -158,7 +158,7 @@ void UserApp1Initialize(void)
   
   
   /* Initialize the Game Start Screen */
-  
+  DebugSetPassthrough();
   LCDCommand(LCD_CLEAR_CMD);
   
   /* Swap the '\0' at the end of the string and put it after the 20th char */
@@ -171,6 +171,7 @@ void UserApp1Initialize(void)
   /* If good initialization, set state to Idle */
   if( 1 )
   {
+    DebugPrintf("\033[2J\033[H");
     UserApp1_StateMachine = UserApp1SM_GameMenu;
   }
   else
@@ -499,6 +500,7 @@ static void UserApp1SM_GameStart(void)
       U32_LIVES--;
       StopBall(ball);
       SetBall(ball);
+      UpdateBottomRow();
       UserApp1_StateMachine = UserApp1SM_GameReset;
     }
   }
