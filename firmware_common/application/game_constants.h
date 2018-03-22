@@ -21,16 +21,18 @@ Constants / Definitions
 #define U32_GAME_START_MESSAGE_TOP_SIZE (u32) 64
 #define U32_GAME_START_MESSAGE_BOTTOM_SIZE (u32) 62
 
-#define U32_GAME_BOARD_XAXIS (u32) 32
-#define U32_GAME_BOARD_YAXIS (u32) 48
+#define U32_GAME_BOARD_XAXIS (u32) 20
+#define U32_GAME_BOARD_YAXIS (u32) 30
 
 #define U32_BRICKLAYERS (u32) 5
 
 #define U8_BRICK (u8) '='
 #define U8_BLANK (u8) ' '
 #define U8_PADDLE (u8) '-'
-#define U8_BALL (u8) 'O'
-#define AU8_BALL "O"
+#define U8_BALL (u8) 'o'
+#define U8_SMALL_BALL (u8) '.'
+#define AU8_BALL "o"
+#define AU8_SMALL_BALL "."
 
 #define U32_GAME_PADDLE_SIZE (u32) 6
 #define U32_GAME_PADDLE_VERTTICAL_OFFSET (u32) 3

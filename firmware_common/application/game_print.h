@@ -18,8 +18,8 @@ void DrawPaddle(void);
 void DrawBall(struct Ball* ball);
 void RedrawRow(u8 row);
 void SetCursor(u8 row, u8 col);
-void updateTopRow(void);
-
+void UpdateTopRow(void);
+void UpdateBottomRow(void);
 
 static u8* numToString(u32 number);
 

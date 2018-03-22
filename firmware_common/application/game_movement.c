@@ -49,14 +49,17 @@ void MovePaddle(u32 U32_GAME_DIRECTION)
 
 void SetBall(struct Ball* ball)
 {
-  ball->x = U32_GAME_BOARD_XAXIS/2; 
-  ball->y = U32_GAME_BOARD_YAXIS - 1;
+  // Sets the ball to the left or right of the center of the paddle.
+  ball->x = (U32_GAME_PADDLE_RIGHT_BOUND + U32_GAME_PADDLE_LEFT_BOUND 
+             + (G_u32SystemTime1ms % 2 ? 0 : 1))/2; 
+  ball->y = U32_GAME_BOARD_YAXIS - 1 - U32_GAME_PADDLE_VERTTICAL_OFFSET;
   
   DrawBall(ball);
 }
 
 void MoveBall(struct Ball* ball) 
 {
+  RedrawRow((u8) (ball->y - ball->vy));
   if ((ball->x == 1)) 
   {
     ball->vx = 1;
@@ -66,15 +69,15 @@ void MoveBall(struct Ball* ball)
     ball->vx = -1;
   }
   
-  if(topCollision(ball))
+  if(TopCollision(ball))
   {
     ball->vy = 1;
   }
-  if (sideCollision(ball))
+  if (SideCollision(ball))
   {
     U32_SCORE += 1;
   }
-  else if (bottomCollision(ball))
+  else if (BottomCollision(ball))
   {
     ball->vy = -1;
   }
@@ -86,17 +89,17 @@ void MoveBall(struct Ball* ball)
   {
     ball->vy = -1;
   }
-  RedrawRow((u8)(ball->y));
+  
   SetCursor((u8)(ball->x), (u8)(ball->y));
-  DebugPrintf("o");
+  DebugPrintf(AU8_SMALL_BALL);
   
   ball->x += ball->vx;
   ball->y += ball->vy;
   
-  correctBall(ball);   
+  CorrectBall(ball);   
 }
 
-static void correctBall(struct Ball* ball) 
+static void CorrectBall(struct Ball* ball) 
 {
   if (ball->x < 1)
   {
@@ -117,7 +120,7 @@ static void correctBall(struct Ball* ball)
   }
 }
     
-static u32 topCollision(struct Ball* ball)
+static u32 TopCollision(struct Ball* ball)
 {
   // Ball is moving up
   if (ball->vy < 0)
@@ -145,7 +148,7 @@ static u32 topCollision(struct Ball* ball)
   return 0;
 }
 
-static u32 sideCollision(struct Ball* ball)
+static u32 SideCollision(struct Ball* ball)
 {
   if ((ball->x == 1) || (ball->x == U32_GAME_BOARD_XAXIS) 
       || (ball->y == U32_GAME_BOARD_YAXIS))
@@ -170,7 +173,7 @@ static u32 sideCollision(struct Ball* ball)
     
 }
 
-static u32 bottomCollision(struct Ball* ball)
+static u32 BottomCollision(struct Ball* ball)
 {
   // Ball is moving down
   if ((ball->vy > 0) && (au8GameScreen[ball->y][ball->x - 1] == U8_PADDLE))
@@ -180,21 +183,20 @@ static u32 bottomCollision(struct Ball* ball)
   return 0;
 }
 
-u32 isMoving(struct Ball* ball) 
+u32 IsBallMoving(struct Ball* ball) 
 {
   return !((ball->vx == 0) && (ball->vy == 0));
   
 }
 
-void setMoving(struct Ball* ball)
+void StartMovingBall(struct Ball* ball)
 {
-  //u32 oldRow = ball->y;
-  
-  //ball->x = U32_GAME_BOARD_XAXIS/2;
-  //ball->y = U32_GAME_BOARD_YAXIS - 1;
-  
   ball->vy = 1;
   ball->vx = (G_u32SystemTime1ms % 2 == 0) ? -1 : 1;
+}
   
-  //RedrawRow(oldRow - 1);
+void StopBall(struct Ball* ball)
+{
+  ball->vx = 0;
+  ball->vy = 0;
 }

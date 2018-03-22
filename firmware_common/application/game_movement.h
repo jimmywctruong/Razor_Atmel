@@ -23,20 +23,22 @@ Type Definitions
 /* Protected functions                                                                                                */
 /*--------------------------------------------------------------------------------------------------------------------*/
 void MovePaddle(u32 U32_GAME_DIRECTION);
-void setMoving(struct Ball* ball);
+void StartMovingBall(struct Ball* ball);
+void StopBall(struct Ball* ball);
 void SetBall(struct Ball* ball);
 void MoveBall(struct Ball* ball);
-u32 isMoving(struct Ball* ball);
+u32 IsBallMoving(struct Ball* ball);
 
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Private functions                                                                                                  */
 /*--------------------------------------------------------------------------------------------------------------------*/
-static u32 topCollision(struct Ball* ball);
-static u32 bottomCollision(struct Ball* ball);
-static u32 sideCollision(struct Ball* ball);
-static void correctBall(struct Ball* ball);
+static u32 TopCollision(struct Ball* ball);
+static u32 BottomCollision(struct Ball* ball);
+static u32 SideCollision(struct Ball* ball);
+static void CorrectBall(struct Ball* ball);
+
 #endif /* __GAME_MOVEMENT_H */
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* End of File                                                                                                        */

@@ -87,8 +87,6 @@ static void UserApp1SM_GameMenu(void);
 
 static void UserApp1SM_GameInitialize(void);
 
-static void UserApp1SM_GameInitializeStall(void);
-
 void UserApp1SM_GameReset(void);
 
 static void UserApp1SM_GameStart(void);

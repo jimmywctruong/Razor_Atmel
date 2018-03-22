@@ -245,7 +245,7 @@ static void UserApp1SM_DrawBoard(void) {
     {
       line = -1;
       skip = 0;
-      UserApp1_StateMachine = UserApp1SM_GameInitializeStall;
+      UserApp1_StateMachine = UserApp1SM_GameReset;
     } 
     else 
     {
@@ -382,20 +382,15 @@ static void UserApp1SM_GameInitialize(void)
   LCDMessage(LINE2_START_ADDR, au8GameOverlayBottom);
   
   UserApp1MakeBoard();
-
-  newBall.x = U32_GAME_BOARD_YAXIS / 2;
-  newBall.y = U32_GAME_BOARD_YAXIS - 1;
-  newBall.vx = 1;
-  newBall.vy = -1;
   ball = &newBall;
   
   DebugPrintf("\033[2J");
 #if 1
+  // Disable Cursor
   DebugPrintf("\033[?25l");
 #endif
   
-  SetBall(ball);
-  
+
   
   for(int i = 0; i < U32_GAME_PADDLE_SIZE/2; i++) 
   {
@@ -407,6 +402,9 @@ static void UserApp1SM_GameInitialize(void)
     U32_GAME_PADDLE_RIGHT_BOUND = U32_GAME_BOARD_XAXIS/2 + i;
   }
   
+  StopBall(ball);
+  SetBall(ball);
+  
   UserApp1_StateMachine = UserApp1SM_DrawBoard;
   
   //UserApp1_StateMachine = UserApp1SM_DrawBoard;
@@ -414,18 +412,58 @@ static void UserApp1SM_GameInitialize(void)
   
 } /* end UserApp1SM_GameInitialize */          
 
-static void UserApp1SM_GameInitializeStall(void)
-{
-  static u32 stall = 0;
-  if (stall == 5)
+static void UserApp1SM_GameReset(void)
+{ 
+  if (IS_DEAD && (U32_LIVES == 0))
   {
+    // UserApp1_StateMachine = UserApp1SM_GameOver;
+  }
+  
+  if (G_u32SystemTime1ms % U32_PADDLE_SPEED == 0)
+  {
+    
+    RedrawRow(ball -> y);
     DrawBall(ball);
-  }
-  if (stall == 10)
-  {
-    UserApp1_StateMachine = UserApp1SM_GameStart;
-  }
-  stall++;
+    
+    if (WasButtonPressed(BUTTON2)) 
+    {
+      ButtonAcknowledge(BUTTON2);
+      StartMovingBall(ball);
+    }
+    
+    if (IsButtonPressed(BUTTON0) && IsButtonPressed(BUTTON3))
+    {
+      // Do nothing.
+    } 
+    else if (IsButtonPressed(BUTTON0)) 
+    { 
+      if ((ball->x > 1) && (ball->x > U32_GAME_PADDLE_LEFT_BOUND))
+      {
+        (ball->x)--;
+      }
+      MovePaddle(U32_GAME_LEFT);
+      
+    } 
+    else if (IsButtonPressed(BUTTON3)) 
+    {
+      if ((ball->x < U32_GAME_BOARD_YAXIS + 1) && (ball->x < U32_GAME_PADDLE_RIGHT_BOUND + 1))
+      {
+        (ball->x)++;
+      }
+      MovePaddle(U32_GAME_RIGHT);
+    }
+    
+    if (IsBallMoving(ball))
+    {
+      if (IS_DEAD)
+      {
+        IS_DEAD = 0;
+        
+      }
+      
+      UserApp1_StateMachine = UserApp1SM_GameStart;
+    }
+  } 
 }
 
 /*-------------------------------------------------------------------------------------------------------------------*/
@@ -433,47 +471,35 @@ static void UserApp1SM_GameInitializeStall(void)
 static void UserApp1SM_GameStart(void)
 {
   static u32 counter = 0;
-    if (counter % 40 == 0)
-    {
+  if (G_u32SystemTime1ms % U32_PADDLE_SPEED == 0)
+  {
     if (IsButtonPressed(BUTTON0) && IsButtonPressed(BUTTON3))
     {
-      //ButtonAcknowledge(BUTTON0);
-      //ButtonAcknowledge(BUTTON3);
+      // Do nothing.
     } 
     else if (IsButtonPressed(BUTTON0)) 
-    {
-      //ButtonAcknowledge(BUTTON0);
-      
+    { 
       MovePaddle(U32_GAME_LEFT);
       
     } else if (IsButtonPressed(BUTTON3)) 
     {
-      //ButtonAcknowledge(BUTTON3);
       MovePaddle(U32_GAME_RIGHT);
-    }
-    
-    if (WasButtonPressed(BUTTON2)) 
-    {
-      ButtonAcknowledge(BUTTON2);
-      if (!isMoving(ball))
-      {
-        setMoving(ball);
-      }
     }
     counter = 0;
   }
-  if (counter % 50 == 0)
+  if (G_u32SystemTime1ms % U32_BALL_SPEED == 0)
   {
-    
-    //DebugPrintf("\033[2J");
-    
     MoveBall(ball);
     DrawBall(ball);
-    updateTopRow();
+    UpdateTopRow();
     
     if (ball->y == U32_GAME_BOARD_YAXIS)
     {
-      //UserApp1_StateMachine = UserApp1SM_GameReset;
+      IS_DEAD = 1;
+      U32_LIVES--;
+      StopBall(ball);
+      SetBall(ball);
+      UserApp1_StateMachine = UserApp1SM_GameReset;
     }
   }
   
@@ -486,10 +512,7 @@ static void UserApp1SM_GameStart(void)
   
 } /* end UserApp1SM_GameStart */ 
 
-static void UserApp1SM_GameReset(void)
-{
-  
-}
+
 
 
 /*-------------------------------------------------------------------------------------------------------------------*/

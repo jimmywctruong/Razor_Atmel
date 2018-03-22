@@ -14,8 +14,6 @@ Public functions:
 #include "game_print.h"
 #include "user_app1.h"
 
-
-
 void DrawPaddle() 
 {
   RedrawRow(U32_GAME_BOARD_YAXIS-U32_GAME_PADDLE_VERTTICAL_OFFSET);
@@ -24,7 +22,7 @@ void DrawPaddle()
 void DrawBall(struct Ball* ball) 
 {
   SetCursor((u8) (ball->x), (u8) (ball->y));
-  DebugPrintf("O");
+  DebugPrintf(AU8_BALL);
 }
 
 
@@ -68,11 +66,24 @@ void SetCursor(u8 col, u8 row)
     DebugPrintf(command);
 }
 
-void updateTopRow(void)
+void UpdateTopRow(void)
 { 
-  
   LCDMessage(LINE1_START_ADDR + 7, numToString(U32_SCORE));
   LCDMessage(LINE1_END_ADDR, numToString(U32_LIVES));
+}
+
+void UpdateBottomRow(void)
+{ 
+  LCDMessage(LINE2_START_ADDR, au8GameOverlayBottom);
+  if (IS_DEAD)
+  {
+    LCDMessage(LINE2_START_ADDR + 14, AU8_BALL);
+  }
+  else
+  {
+    
+  }
+  
 }
 
 static u8* numToString(u32 number)
@@ -105,7 +116,6 @@ static u8* numToString(u32 number)
   au8Number[au8NumberSize++] = number + '0';
   
   return au8Number;
-  
 }
     
 
