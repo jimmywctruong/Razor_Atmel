@@ -34,11 +34,27 @@ u32 IsBallMoving(struct Ball* ball);
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Private functions                                                                                                  */
 /*--------------------------------------------------------------------------------------------------------------------*/
-static u32 TopCollision(struct Ball* ball);
-static u32 BottomCollision(struct Ball* ball);
-static u32 SideCollision(struct Ball* ball);
-static void CorrectBall(struct Ball* ball);
 
+static void CheckVerticalWalls(struct Ball* ball);
+static void CheckHorizontalWalls(struct Ball* ball);
+static void CheckTopCollision(struct Ball* ball);
+static void CheckLeftCollision(struct Ball* ball);
+static void CheckRightCollision(struct Ball* ball);
+static void CheckBottomCollision(struct Ball* ball);
+
+
+static void CheckTopLeftCollision(struct Ball* ball);
+static void CheckTopRightCollision(struct Ball* ball);
+
+static void CheckBottomLeftCollision(struct Ball* ball);
+static void CheckBottomRightCollision(struct Ball* ball);
+
+static void CorrectBall(struct Ball* ball) ;
+
+static void MoveBallUp(struct Ball* ball);
+static void MoveBallDown(struct Ball* ball);
+static void MoveBallLeft(struct Ball* ball);
+static void MoveBallRight(struct Ball* ball);
 #endif /* __GAME_MOVEMENT_H */
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* End of File                                                                                                        */

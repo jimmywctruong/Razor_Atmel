@@ -57,9 +57,167 @@ void SetBall(struct Ball* ball)
   DrawBall(ball);
 }
 
+static void CheckVerticalWalls(struct Ball* ball)
+{
+  if (ball -> x == U32_GAME_LEFT_WALL)
+  {
+    MoveBallRight(ball);
+  }
+  else if (ball -> x == U32_GAME_RIGHT_WALL)
+  {
+    MoveBallLeft(ball);
+  }
+}
+
+static void CheckHorizontalWalls(struct Ball* ball)
+{
+  if (ball -> y == U32_GAME_BOTTOM_WALL)
+  {
+    MoveBallUp(ball);
+    
+  }
+  else if (ball -> y == U32_GAME_TOP_WALL)
+  {
+    MoveBallDown(ball);
+  }
+}
+
+static void MoveBallUp(struct Ball* ball)
+{
+    // Up is negative, down is positive
+    // If ball is travelling down, ensure the ball is moving up
+    ball -> vy = (ball -> vy > 0) ? -1 * (ball -> vy) : (ball -> vy);
+}
+
+static void MoveBallDown(struct Ball* ball)
+{
+    // Up is negative, down is positive
+    // If ball is travelling up, ensure the ball is moving down
+    ball -> vy = (ball -> vy < 0) ? -1 * (ball -> vy) : (ball -> vy);
+}
+
+static void MoveBallRight(struct Ball* ball)
+{
+    // Left is negative, right is positive
+    // If ball is travelling left, ensure the ball is moving right
+    ball -> vx = (ball -> vx < 0) ? -1 * (ball -> vx) : (ball -> vx);
+}
+
+static void MoveBallLeft(struct Ball* ball)
+{
+    // Left is negative, right is positive
+    // If ball is travelling right, ensure the ball is moving left
+    ball -> vx = (ball -> vx > 0) ? -1 * (ball -> vx) : (ball -> vx);
+}
+
+
+static void CheckTopCollision(struct Ball* ball)
+{
+  // Skip if the ball collided with the top wall.
+  if (ball -> y == U32_GAME_TOP_WALL)
+  {
+    return;
+  }
+  // The item above the ball is at ball -> y - 1 visually, 
+  // and ball -> y - 2'th row index in the array.
+  u8 col = ball -> y - 2;
+  u8 tileAbove = au8GameScreen[col][ball -> x];
+  if (tileAbove != U8_BLANK)
+  {
+    if (tileAbove == U8_BRICK)
+    {
+      au8GameScreen[(ball -> y) - 2][ball -> x] = U8_BLANK;
+    }
+    MoveBallDown(ball);
+  }
+}
+
+static void CheckBottomCollision(struct Ball* ball)
+{
+  // Skip if the ball collided with the bottom wall.
+  if (ball -> y == U32_GAME_BOTTOM_WALL)
+  {
+    return;
+  }
+  // The item below the ball is at ball -> y + 1 visually, 
+  // and ball -> y'th row index in the array.
+  u8 tileAbove = au8GameScreen[(ball -> y)][ball -> x];
+  if (tileAbove != U8_BLANK)
+  {
+    if (tileAbove == U8_BRICK)
+    {
+      au8GameScreen[(ball -> y)][ball -> x] = U8_BLANK;
+    }
+    MoveBallUp(ball);
+  }
+}
+
+
+static void CheckLeftCollision(struct Ball* ball)
+{
+  // Skip if the ball collided with the left wall.
+  if (ball -> x == U32_GAME_LEFT_WALL)
+  {
+    return;
+  }
+  
+  // The item to the left of the ball is at ball -> x - 1 visually, 
+  // and ball -> x -2'th col index in the array.
+  u8 tileLeft = au8GameScreen[ball -> y][ball -> x - 2];
+  if (tileLeft != U8_BLANK)
+  {
+    if (tileLeft == U8_BRICK)
+    {
+      au8GameScreen[ball -> y][ball -> x - 2] = U8_BLANK;
+    }
+    MoveBallRight(ball);
+  }
+}
+
+static void CheckRightCollision(struct Ball* ball)
+{
+  // Skip if the ball collided with the left wall.
+  if (ball -> x == U32_GAME_RIGHT_WALL)
+  {
+    return;
+  }
+  
+  // The item to the right of the ball is at ball -> x + 1 visually, 
+  // and ball -> x + 2'th col index in the array.
+  u8 tileLeft = au8GameScreen[ball -> y][ball -> x + 2];
+  if (tileLeft != U8_BLANK)
+  {
+    if (tileLeft == U8_BRICK)
+    {
+      au8GameScreen[ball -> y][ball -> x + 2] = U8_BLANK;
+    }
+    MoveBallLeft(ball);
+  }
+}
+
+
+
 void MoveBall(struct Ball* ball) 
 {
-  RedrawRow((u8) (ball->y - ball->vy));
+  CheckVerticalWalls(ball);
+  CheckHorizontalWalls(ball);
+  
+  CheckTopCollision(ball);
+  CheckLeftCollision(ball);
+  CheckRightCollision(ball);
+  CheckBottomCollision(ball);
+  
+  RedrawRow((u8) (ball->y - ball->vy)); // Clear the old shadow
+  
+  SetCursor((u8)(ball->x), (u8)(ball->y));
+  DebugPrintf(AU8_SMALL_BALL);
+  
+  ball->x += ball->vx;
+  ball->y += ball->vy;
+  
+  CorrectBall(ball);  
+  
+#if 0 
   if ((ball->x == 1)) 
   {
     ball->vx = 1;
@@ -89,14 +247,7 @@ void MoveBall(struct Ball* ball)
   {
     ball->vy = -1;
   }
-  
-  SetCursor((u8)(ball->x), (u8)(ball->y));
-  DebugPrintf(AU8_SMALL_BALL);
-  
-  ball->x += ball->vx;
-  ball->y += ball->vy;
-  
-  CorrectBall(ball);   
+#endif   
 }
 
 static void CorrectBall(struct Ball* ball) 
