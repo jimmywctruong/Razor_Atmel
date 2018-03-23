@@ -40,6 +40,11 @@ Constants / Definitions
 #define U32_GAME_LEFT (u32) -1
 #define U32_GAME_RIGHT (u32) 1
 
+#define U32_GAME_LEFT_WALL (u32) 1
+#define U32_GAME_RIGHT_WALL (u32) U32_GAME_BOARD_XAXIS
+#define U32_GAME_TOP_WALL (u32) 1
+#define U32_GAME_BOTTOM_WALL (u32) U32_GAME_BOARD_YAXIS
+
 u8 au8GameOverlayTopScore[]
 = "Score:       Lives: ";
 
