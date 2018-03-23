@@ -417,7 +417,7 @@ static void UserApp1SM_GameReset(void)
 { 
   if (IS_DEAD && (U32_LIVES == 0))
   {
-    // UserApp1_StateMachine = UserApp1SM_GameOver;
+     UserApp1_StateMachine = UserApp1SM_Idle;
   }
   
   if (G_u32SystemTime1ms % U32_PADDLE_SPEED == 0)
